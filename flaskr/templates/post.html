@@ -20,35 +20,6 @@
 </head>
 <body>
 
-  <h1>Please enter the coordinates of the place you intrested in.</h1>
-
-  <form method="POST">
-
-    (Longitude, Latitude):
-    <br>
-
-    <input type="text" name="long">
-    <br>
-
-    <input type="submit" class="button" name = "submit" value="Submit">
-    </form>
-
-<p id="demo"></p>
-
-<script>
-function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML = this.responseText;
-    }
-  };
-  xhttp.open("POST", "demo_post2.asp", true);
-  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send("fname=Henry&lname=Ford");
-}
-</script>
-
 <div id="map"></div>
 <script>
   var map;
@@ -72,20 +43,6 @@ function loadDoc() {
       var pos = {lat: latLng.lat(), lng: latLng.lng()};
       marker = new google.maps.Marker({position: pos, map: map});
     });
-  }
-</script>
-
-<script>
-  function loadDoc() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("demo").innerHTML = this.responseText;
-      }
-    };
-    xhttp.open("POST", "demo_post2.asp", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("fname=Henry&lname=Ford");
   }
 </script>
 
