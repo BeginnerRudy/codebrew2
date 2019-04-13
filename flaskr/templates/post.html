@@ -80,6 +80,11 @@
       marker.addListener('mouseout', function() {
         infowindow.close();
       });
+      marker.addListener('rightclick', function() {
+        // Zoom the marker when user click on it
+        map.setZoom(16);
+        map.setCenter(marker.getPosition());
+      });
     }
   }
 
