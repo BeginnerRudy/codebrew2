@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Map</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Please enter the coordinates of the place you intrested in.</h1>
+
+  <form method="POST">
+
+    (Longitude, Latitude):
+    <br>
+
+    <input type="text" name="long">
+    <br>
+
+    <input type="submit" class="button" name = "submit" value="Submit">
+    </form>
+
+<p id="demo"></p>
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("POST", "demo_post2.asp", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("fname=Henry&lname=Ford");
+}
+</script>
+
+<div id="map"></div>
+<script>
+  var map;
+  function initMap() {
+    // The location of Melbourne
+    var Melbourne = {lat: -37.8136, lng: 144.9631};
+    // The map, centered at Melbourne
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: Melbourne,
+      zoom: 14
+    });
+    // The marker, positioned at Uluru
+    var marker = new google.maps.Marker({position: Melbourne, map: map});
+    var marker2;
+
+    // add listener onto google map
+    google.maps.event.addListener(map, "click", function (e) {
+
+      //lat and lng is available in e object
+      var latLng = e.latLng;
+      var pos = {lat: latLng.lat(), lng: latLng.lng()};
+      marker = new google.maps.Marker({position: pos, map: map});
+    });
+  }
+</script>
+
+<script>
+  function loadDoc() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("POST", "demo_post2.asp", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("fname=Henry&lname=Ford");
+  }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVrV5t3FrHnqanqHMnPIuqn9YTZbDdqzg&callback=initMap"
+async defer></script>
+
+</body>
+</html>
