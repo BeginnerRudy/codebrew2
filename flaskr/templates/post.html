@@ -27,8 +27,6 @@
   function initMap() {
     // The location of Melbourne
     var Melbourne = {lat: -37.8136, lng: 144.9631};
-    // An array of markers
-    markers = []
     // The map, centered at Melbourne
     var map = new google.maps.Map(document.getElementById('map'), {
       center: Melbourne,
@@ -42,38 +40,24 @@
 
     function placeMarker(map, location) {
       var result = prompt("Enter a value of comment for Marker.");
-      if (result != '') {
+      if (result != "") {
         //  block of code to be executed if the condition is true
         var marker = new google.maps.Marker({
           position: location,
           map: map,
           draggable: true,
-          animation: google.maps.Animation.Drop
+          animation: google.maps.Animation.DROP
         });
         // show the message attached
-        attachMessage(marker, result);
-
-        marker.addListener('click', function() {
-          var result = prompt("Enter a value of comment for Marker.");
-          attachMessage(marker, result);
-        });
-      }
-
-      // Zoom the marker when user click on it
-      // map.setZoom(19);
-      // map.setCenter(marker.getPosition());
+        var infowindow = attachMessageAndAddListeners(marker, result);
     }
 
-    function attachMessage(marker, message) {
-      if (message == '') {
-        //  block of code to be executed if the condition is true
-        // Do nothing, since the input is an empty string
-      } else {
-        //  block of code to be executed if the condition is false
-        var infowindow = new google.maps.InfoWindow({
-          content: message
-        });
-      }
+    function attachMessageAndAddListeners(marker, message) {
+      // Bind information
+      var infowindow = new google.maps.InfoWindow({
+        content: message
+      });
+
       marker.addListener('mouseover', function() {
         infowindow.open(map, marker);
       });
@@ -85,6 +69,15 @@
         map.setZoom(16);
         map.setCenter(marker.getPosition());
       });
+      marker.addListener('click', function() {
+        var result = prompt("Enter a new value of comment for Marker.");
+        if (result != '') {
+          infowindow.setContent(result);
+          infowindow.open(map, marker);
+        }
+      });
+      return infowindow;
+    }
     }
   }
 
