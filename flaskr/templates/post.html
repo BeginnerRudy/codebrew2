@@ -37,10 +37,14 @@
     google.maps.event.addListener(map, "click", function (e) {
      placeMarker(map, e.latLng);
     });
+    // add listener onto google map
+    google.maps.event.addListener(map, "rightclick", function (e) {
+     map.setZoom(14);
+    });
 
     function placeMarker(map, location) {
       var result = prompt("Enter a value of comment for Marker.");
-      if (result != "") {
+      if (result != "" && result != null) {
         //  block of code to be executed if the condition is true
         var marker = new google.maps.Marker({
           position: location,
