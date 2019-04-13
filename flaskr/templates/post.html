@@ -27,6 +27,8 @@
   function initMap() {
     // The location of Melbourne
     var Melbourne = {lat: -37.8136, lng: 144.9631};
+    // An array of markers
+    markers = []
     // The map, centered at Melbourne
     var map = new google.maps.Map(document.getElementById('map'), {
       center: Melbourne,
@@ -35,14 +37,50 @@
 
     // add listener onto google map
     google.maps.event.addListener(map, "click", function (e) {
-
-      //lat and lng is available in e object
-      var latLng = e.latLng;
-      var pos = {lat: latLng.lat(), lng: latLng.lng()};
-      // Add a new marker to the Map
-      var new_maker_added_by_user = new google.maps.Marker({draggable: true,
-          animation: google.maps.Animation.DROP,position: pos, map: map});
+     placeMarker(map, e.latLng);
     });
+
+    function placeMarker(map, location) {
+      var result = prompt("Enter a value of comment for Marker.");
+      if (result != '') {
+        //  block of code to be executed if the condition is true
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map,
+          draggable: true,
+          animation: google.maps.Animation.Drop
+        });
+        // show the message attached
+        attachMessage(marker, result);
+
+        marker.addListener('click', function() {
+          var result = prompt("Enter a value of comment for Marker.");
+          attachMessage(marker, result);
+        });
+      }
+
+      // Zoom the marker when user click on it
+      // map.setZoom(19);
+      // map.setCenter(marker.getPosition());
+    }
+
+    function attachMessage(marker, message) {
+      if (message == '') {
+        //  block of code to be executed if the condition is true
+        // Do nothing, since the input is an empty string
+      } else {
+        //  block of code to be executed if the condition is false
+        var infowindow = new google.maps.InfoWindow({
+          content: message
+        });
+      }
+      marker.addListener('mouseover', function() {
+        infowindow.open(map, marker);
+      });
+      marker.addListener('mouseout', function() {
+        infowindow.close();
+      });
+    }
   }
 
 </script>
