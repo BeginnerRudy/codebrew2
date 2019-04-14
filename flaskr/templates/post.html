@@ -75,7 +75,7 @@
       });
       marker.addListener('click', function() {
         var result = prompt("Enter a new value of comment for Marker.");
-        if (result != '') {
+        if (result != '' && result != null) {
           infowindow.setContent(result);
           infowindow.open(map, marker);
         }
