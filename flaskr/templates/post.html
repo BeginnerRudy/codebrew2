@@ -36,6 +36,7 @@
     // add listener onto google map
     google.maps.event.addListener(map, "click", function (e) {
      placeMarker(map, e.latLng);
+     console.log(e.latLng);
     });
     // add listener onto google map
     google.maps.event.addListener(map, "rightclick", function (e) {
